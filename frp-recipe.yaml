@@ -16,6 +16,10 @@ variables:
     datadog_key : none
     datadog_hostname : none
     datadog_site : datadoghq.com
+    db_host : localhost
+    db_name : faroeste
+    db_username : root
+    db_password : none
 tasks:
 #  Download Base Files
   - action: download_github
