@@ -67,7 +67,7 @@ tasks:
     
 # ox_side    
   - action: download_file
-    url: https://github.com/overextended/oxmysql/releases/latest/download/oxmysql.zip
+    url: https://github.com/Faroeste-Roleplay/oxmysql/releases/latest/download/oxmysql.zip
     path: ./tmp/oxmysql.zip
   
   - action: unzip
@@ -75,7 +75,7 @@ tasks:
     src: ./tmp/oxmysql.zip
 
   - action: download_file
-    url: https://github.com/overextended/ox_lib/releases/latest/download/ox_lib.zip
+    url: https://github.com/Faroeste-Roleplay/ox_lib/releases/latest/download/ox_lib.zip
     path: ./tmp/ox_lib.zip
   
   - action: unzip
