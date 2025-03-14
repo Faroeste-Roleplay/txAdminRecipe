@@ -17,7 +17,7 @@ variables:
     datadog_hostname : none
     datadog_site : datadoghq.com
     db_host : localhost
-    db_name : faroeste
+    db_name : frp
     db_username : root
     db_password : none
 tasks:
