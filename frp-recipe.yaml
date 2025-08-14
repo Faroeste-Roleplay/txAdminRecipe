@@ -39,7 +39,26 @@ tasks:
 # Prepare Database
   - action: connect_database
   - action: query_database
-    file: ./tmp/FRP_txAdminRecipe/db.sql
+    query: |      
+      DROP DATABASE IF EXISTS `{{dbName}}`;
+      CREATE DATABASE IF NOT EXISTS `{{dbName}}`;
+
+  - action: write_file
+    file: ./tmp/delete.sql
+    append: true
+    data: |
+      ensure
+
+  - action: replace_string
+    file: ./tmp/delete.sql
+    search: "ensure"
+    replace: "DROP DATABASE IF EXISTS `{{dbName}}`"
+  
+  - action: query_database
+    file: ./tmp/delete.sql
+  
+  # - action: query_database
+  #   file: ./tmp/FRP_txAdminRecipe/db.sql
 
 # STANDALONE CFX
   - action: download_github
