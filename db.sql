@@ -11,6 +11,37 @@ CREATE TABLE IF NOT EXISTS `ban_batch` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 -- Copiando dados para a tabela faroeste.ban_batch: ~0 rows (aproximadamente)
 
+-- Copiando estrutura para tabela faroeste.user
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `numCharSlots` int(5) DEFAULT 1,
+  `updatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+-- Copiando estrutura para tabela faroeste.user_credentials
+CREATE TABLE IF NOT EXISTS `user_credentials` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL,
+  `license` varchar(50) DEFAULT NULL,
+  `discord` varchar(50) DEFAULT NULL,
+  `steam` varchar(50) NOT NULL,
+  `fivem` varchar(50) DEFAULT NULL,
+  `xbl` varchar(50) DEFAULT NULL,
+  `license2` varchar(50) DEFAULT NULL,
+  `live` varchar(50) DEFAULT NULL,
+  `ip` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `steam` (`steam`),
+  UNIQUE KEY `fivem` (`fivem`),
+  UNIQUE KEY `license` (`license`),
+  UNIQUE KEY `discord` (`discord`),
+  KEY `FK_user_credentials_user` (`userId`),
+  CONSTRAINT `FK_user_credentials_user` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
 CREATE TABLE `character` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`userId` INT(11) NOT NULL,
@@ -265,37 +296,6 @@ INSERT INTO `reserve_type` (`id`, `code`) VALUES
 	(3, 'BANK_VALENTINE'),
 	(4, 'BANK_RHODES'),
 	(5, 'BANK_ARMADILLO');
-
--- Copiando estrutura para tabela faroeste.user
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `numCharSlots` int(5) DEFAULT 1,
-  `updatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-
--- Copiando estrutura para tabela faroeste.user_credentials
-CREATE TABLE IF NOT EXISTS `user_credentials` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
-  `license` varchar(50) DEFAULT NULL,
-  `discord` varchar(50) DEFAULT NULL,
-  `steam` varchar(50) NOT NULL,
-  `fivem` varchar(50) DEFAULT NULL,
-  `xbl` varchar(50) DEFAULT NULL,
-  `license2` varchar(50) DEFAULT NULL,
-  `live` varchar(50) DEFAULT NULL,
-  `ip` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `steam` (`steam`),
-  UNIQUE KEY `fivem` (`fivem`),
-  UNIQUE KEY `license` (`license`),
-  UNIQUE KEY `discord` (`discord`),
-  KEY `FK_user_credentials_user` (`userId`),
-  CONSTRAINT `FK_user_credentials_user` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 
 ALTER TABLE `ox_inventory`
