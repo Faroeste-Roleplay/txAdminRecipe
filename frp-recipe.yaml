@@ -1,8 +1,9 @@
 $engine: 3
+$onesync: on
 name: Faroeste
-version: 1.0.0
-author: Abdulkadir Aktaş
-description: Bu tarif Faroeste için Abdulkadir Aktaş tarafından hazırlanmıştır.
+version: 1.0.5
+author: Klandestino
+description: An advanced RedM RP framework!
 
 variables:
     steamApiKey : none
@@ -38,26 +39,7 @@ tasks:
 # Prepare Database
   - action: connect_database
   - action: query_database
-    query: |      
-      DROP DATABASE IF EXISTS `faroeste`;
-      CREATE DATABASE IF NOT EXISTS `faroeste`;
-
-  - action: write_file
-    file: ./tmp/delete.sql
-    append: true
-    data: |
-      ensure
-
-  - action: replace_string
-    file: ./tmp/delete.sql
-    search: "ensure"
-    replace: "DROP DATABASE IF EXISTS `{{dbName}}`"
-  
-  - action: query_database
-    file: ./tmp/delete.sql
-  
-  # - action: query_database
-  #   file: ./tmp/FRP_txAdminRecipe/db.sql
+    file: ./tmp/FRP_txAdminRecipe/db.sql
 
 # STANDALONE CFX
   - action: download_github
