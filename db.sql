@@ -43,6 +43,21 @@ CREATE TABLE IF NOT EXISTS `user_credentials` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 
+-- Copiando estrutura para tabela faroeste.reserve_type
+CREATE TABLE IF NOT EXISTS `reserve_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` tinytext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- Copiando dados para a tabela faroeste.reserve_type: ~5 rows (aproximadamente)
+INSERT INTO `reserve_type` (`id`, `code`) VALUES
+	(1, 'BANK_BLACKWATER'),
+	(2, 'BANK_SAINTDENIS'),
+	(3, 'BANK_VALENTINE'),
+	(4, 'BANK_RHODES'),
+	(5, 'BANK_ARMADILLO');
+
 -- Copiando estrutura para tabela faroeste.reserve
 CREATE TABLE IF NOT EXISTS `reserve` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -82,22 +97,6 @@ CREATE TABLE IF NOT EXISTS `reserve_owner` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Copiando dados para a tabela faroeste.reserve_owner: ~0 rows (aproximadamente)
-
--- Copiando estrutura para tabela faroeste.reserve_type
-CREATE TABLE IF NOT EXISTS `reserve_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` tinytext NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- Copiando dados para a tabela faroeste.reserve_type: ~5 rows (aproximadamente)
-INSERT INTO `reserve_type` (`id`, `code`) VALUES
-	(1, 'BANK_BLACKWATER'),
-	(2, 'BANK_SAINTDENIS'),
-	(3, 'BANK_VALENTINE'),
-	(4, 'BANK_RHODES'),
-	(5, 'BANK_ARMADILLO');
-
 
 CREATE TABLE `transport` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
