@@ -42,6 +42,82 @@ CREATE TABLE IF NOT EXISTS `user_credentials` (
   CONSTRAINT `FK_user_credentials_user` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+
+-- Copiando estrutura para tabela faroeste.reserve
+CREATE TABLE IF NOT EXISTS `reserve` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `typeId` int(11) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `FK_reserve_reserve_type` (`typeId`),
+  CONSTRAINT `FK_reserve_reserve_type` FOREIGN KEY (`typeId`) REFERENCES `reserve_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- Copiando dados para a tabela faroeste.reserve: ~0 rows (aproximadamente)
+
+-- Copiando estrutura para tabela faroeste.reserve_item
+CREATE TABLE IF NOT EXISTS `reserve_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `reserveId` int(11) NOT NULL,
+  `itemKey` varchar(50) NOT NULL,
+  `itemAmount` int(10) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `reserveId_itemKey` (`reserveId`,`itemKey`),
+  KEY `reserveId` (`reserveId`),
+  CONSTRAINT `FK_reserve_item_reserve` FOREIGN KEY (`reserveId`) REFERENCES `reserve` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- Copiando dados para a tabela faroeste.reserve_item: ~0 rows (aproximadamente)
+
+-- Copiando estrutura para tabela faroeste.reserve_owner
+CREATE TABLE IF NOT EXISTS `reserve_owner` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `reserveId` int(11) NOT NULL,
+  `ownerId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_character_reserve_reserve` (`reserveId`),
+  KEY `FK_character_reserve_characters` (`ownerId`) USING BTREE,
+  CONSTRAINT `FK_character_reserve_characters` FOREIGN KEY (`ownerId`) REFERENCES `character` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_character_reserve_reserve` FOREIGN KEY (`reserveId`) REFERENCES `reserve` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- Copiando dados para a tabela faroeste.reserve_owner: ~0 rows (aproximadamente)
+
+-- Copiando estrutura para tabela faroeste.reserve_type
+CREATE TABLE IF NOT EXISTS `reserve_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` tinytext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- Copiando dados para a tabela faroeste.reserve_type: ~5 rows (aproximadamente)
+INSERT INTO `reserve_type` (`id`, `code`) VALUES
+	(1, 'BANK_BLACKWATER'),
+	(2, 'BANK_SAINTDENIS'),
+	(3, 'BANK_VALENTINE'),
+	(4, 'BANK_RHODES'),
+	(5, 'BANK_ARMADILLO');
+
+
+CREATE TABLE `transport` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`type` ENUM('Horse','Vehicle','Boat') NOT NULL COLLATE 'utf8mb4_general_ci',
+	`modelName` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`name` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`ownerId` INT(11) NOT NULL,
+	`inventoryId` INT(11) NOT NULL,
+	`createdAt` DATETIME NULL DEFAULT NULL,
+	PRIMARY KEY (`id`) USING BTREE,
+	INDEX `FK_transport_character` (`ownerId`) USING BTREE,
+	INDEX `FK_transport_ox_inventory` (`inventoryId`) USING BTREE,
+	CONSTRAINT `FK_transport_character` FOREIGN KEY (`ownerId`) REFERENCES `character` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT `FK_transport_ox_inventory` FOREIGN KEY (`inventoryId`) REFERENCES `ox_inventory` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=1
+;
+
 CREATE TABLE `character` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`userId` INT(11) NOT NULL,
@@ -242,84 +318,10 @@ CREATE TABLE IF NOT EXISTS `ox_inventory` (
 
 -- Copiando dados para a tabela faroeste.ox_inventory: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela faroeste.reserve
-CREATE TABLE IF NOT EXISTS `reserve` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `typeId` int(11) NOT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `FK_reserve_reserve_type` (`typeId`),
-  CONSTRAINT `FK_reserve_reserve_type` FOREIGN KEY (`typeId`) REFERENCES `reserve_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- Copiando dados para a tabela faroeste.reserve: ~0 rows (aproximadamente)
-
--- Copiando estrutura para tabela faroeste.reserve_item
-CREATE TABLE IF NOT EXISTS `reserve_item` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `reserveId` int(11) NOT NULL,
-  `itemKey` varchar(50) NOT NULL,
-  `itemAmount` int(10) unsigned NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `reserveId_itemKey` (`reserveId`,`itemKey`),
-  KEY `reserveId` (`reserveId`),
-  CONSTRAINT `FK_reserve_item_reserve` FOREIGN KEY (`reserveId`) REFERENCES `reserve` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- Copiando dados para a tabela faroeste.reserve_item: ~0 rows (aproximadamente)
-
--- Copiando estrutura para tabela faroeste.reserve_owner
-CREATE TABLE IF NOT EXISTS `reserve_owner` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `reserveId` int(11) NOT NULL,
-  `ownerId` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_character_reserve_reserve` (`reserveId`),
-  KEY `FK_character_reserve_characters` (`ownerId`) USING BTREE,
-  CONSTRAINT `FK_character_reserve_characters` FOREIGN KEY (`ownerId`) REFERENCES `character` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_character_reserve_reserve` FOREIGN KEY (`reserveId`) REFERENCES `reserve` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- Copiando dados para a tabela faroeste.reserve_owner: ~0 rows (aproximadamente)
-
--- Copiando estrutura para tabela faroeste.reserve_type
-CREATE TABLE IF NOT EXISTS `reserve_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `code` tinytext NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- Copiando dados para a tabela faroeste.reserve_type: ~5 rows (aproximadamente)
-INSERT INTO `reserve_type` (`id`, `code`) VALUES
-	(1, 'BANK_BLACKWATER'),
-	(2, 'BANK_SAINTDENIS'),
-	(3, 'BANK_VALENTINE'),
-	(4, 'BANK_RHODES'),
-	(5, 'BANK_ARMADILLO');
-
 
 ALTER TABLE `ox_inventory`
 	ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
 	ADD PRIMARY KEY (`id`);
-
-CREATE TABLE `transport` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`type` ENUM('Horse','Vehicle','Boat') NOT NULL COLLATE 'utf8mb4_general_ci',
-	`modelName` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`name` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
-	`ownerId` INT(11) NOT NULL,
-	`inventoryId` INT(11) NOT NULL,
-	`createdAt` DATETIME NULL DEFAULT NULL,
-	PRIMARY KEY (`id`) USING BTREE,
-	INDEX `FK_transport_character` (`ownerId`) USING BTREE,
-	INDEX `FK_transport_ox_inventory` (`inventoryId`) USING BTREE,
-	CONSTRAINT `FK_transport_character` FOREIGN KEY (`ownerId`) REFERENCES `character` (`id`) ON UPDATE CASCADE ON DELETE CASCADE,
-	CONSTRAINT `FK_transport_ox_inventory` FOREIGN KEY (`inventoryId`) REFERENCES `ox_inventory` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
-)
-COLLATE='utf8mb4_general_ci'
-ENGINE=InnoDB
-AUTO_INCREMENT=1
-;
 
 CREATE TABLE `transport_horse` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
