@@ -131,10 +131,25 @@ tasks:
     dest: ./resources/[faroeste]/frp_appearance
 
   - action: download_github
-    src: https://github.com/Faroeste-Roleplay/frp_toast
+    src: https://github.com/Faroeste-Roleplay/frp_notify
     ref: main
-    dest: ./resources/[faroeste]/frp_toast
+    dest: ./resources/[faroeste]/frp_notify
 
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_admin
+    ref: main
+    dest: ./resources/[faroeste]/frp_admin
+
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/progressbar
+    ref: main
+    dest: ./resources/[faroeste]/progressbar
+    
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_door_manager
+    ref: main
+    dest: ./resources/[faroeste]/frp_door_manager
+    
   - action: download_file
     url: https://github.com/Faroeste-Roleplay/ox_inventory/releases/latest/download/ox_inventory.zip
     path: ./tmp/ox_inventory.zip
