@@ -64,10 +64,17 @@ tasks:
   - action: download_file
     url: https://github.com/Faroeste-Roleplay/ox_lib/releases/latest/download/ox_lib.zip
     path: ./tmp/ox_lib.zip
-  
   - action: unzip
     dest: ./resources/[ox]/
     src: ./tmp/ox_lib.zip
+    
+  - action: download_file
+    url: https://github.com/Faroeste-Roleplay/ox_target/releases/latest/download/ox_target.zip
+    path: ./tmp/ox_target.zip
+  
+  - action: unzip
+    dest: ./resources/[ox]/
+    src: ./tmp/ox_target.zip
 
 # faroeste side  
   - action: download_github
