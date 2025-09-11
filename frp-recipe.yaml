@@ -255,7 +255,11 @@ tasks:
     src: https://github.com/Faroeste-Roleplay/frp_business
     ref: main
     dest: ./resources/[faroeste]/frp_business
-
+        
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/callbacks
+    ref: main
+    dest: ./resources/[faroeste]/callbacks
 
 # Clean tmp
   - action: remove_path
