@@ -156,6 +156,11 @@ tasks:
     src: https://github.com/Faroeste-Roleplay/frp_door_manager
     ref: main
     dest: ./resources/[faroeste]/frp_door_manager
+
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_loading_screen
+    ref: main
+    dest: ./resources/[faroeste]/frp_loading_screen
     
   - action: download_file
     url: https://github.com/Faroeste-Roleplay/ox_inventory/releases/latest/download/ox_inventory.zip
@@ -164,6 +169,89 @@ tasks:
   - action: unzip
     dest: ./resources/[faroeste]/
     src: ./tmp/ox_inventory.zip
+
+        
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_horse_stable
+    ref: main
+    dest: ./resources/[faroeste]/frp_horse_stable
+        
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_transport_manager
+    ref: main
+    dest: ./resources/[faroeste]/frp_transport_manager
+            
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_manager_snippets
+    ref: main
+    dest: ./resources/[faroeste]/frp_manager_snippets
+            
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_lockpicking
+    ref: main
+    dest: ./resources/[faroeste]/frp_lockpicking
+            
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_web_interface
+    ref: main
+    dest: ./resources/[faroeste]/frp_web_interface
+            
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_chat_theme
+    ref: main
+    dest: ./resources/[faroeste]/frp_chat_theme
+            
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_player_horse
+    ref: main
+    dest: ./resources/[faroeste]/frp_player_horse
+                
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_law_enforcement_job
+    ref: main
+    dest: ./resources/[faroeste]/frp_law_enforcement_job
+                
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_animations
+    ref: main
+    dest: ./resources/[faroeste]/frp_animations
+                
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_radialmenu
+    ref: main
+    dest: ./resources/[faroeste]/frp_radialmenu
+
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_player_hostility
+    ref: main
+    dest: ./resources/[faroeste]/frp_player_hostility
+                
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_gathering_foliage
+    ref: main
+    dest: ./resources/[faroeste]/frp_gathering_foliage
+                
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_blips_manager
+    ref: main
+    dest: ./resources/[faroeste]/frp_blips_manager
+                    
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_jail
+    ref: main
+    dest: ./resources/[faroeste]/frp_jail
+                
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_weathersync
+    ref: main
+    dest: ./resources/[faroeste]/frp_weathersync
+    
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_menu_base
+    ref: main
+    dest: ./resources/[faroeste]/frp_menu_base
+    
+
 
 # Clean tmp
   - action: remove_path
