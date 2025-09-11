@@ -250,7 +250,11 @@ tasks:
     src: https://github.com/Faroeste-Roleplay/frp_menu_base
     ref: main
     dest: ./resources/[faroeste]/frp_menu_base
-    
+        
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_business
+    ref: main
+    dest: ./resources/[faroeste]/frp_business
 
 
 # Clean tmp
