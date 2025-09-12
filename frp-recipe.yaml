@@ -260,6 +260,12 @@ tasks:
     src: https://github.com/Faroeste-Roleplay/callbacks
     ref: main
     dest: ./resources/[faroeste]/callbacks
+        
+  - action: download_github
+    src: https://github.com/Faroeste-Roleplay/frp_camera_manager
+    ref: main
+    dest: ./resources/[faroeste]/frp_camera_manager
+    
 
 # Clean tmp
   - action: remove_path
